@@ -5,7 +5,7 @@ export class CreateExpenseDto {
   readonly title: string;
 
   @IsString()
-  readonly amount: string;
+  readonly amount: number;
 
   @IsString()
   readonly typeId: string;
