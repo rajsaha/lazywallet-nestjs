@@ -17,13 +17,13 @@ export class ExpenseController {
     return this.expenseService.findAll();
   }
 
-  @Get('id')
+  @Get(':id')
   async findOne(@Param('id') id: string) {
     const _result = await this.expenseService.findOne(id);
     return _result;
   }
 
-  @Delete('id')
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     const _result = await this.expenseService.delete(id);
     return _result;
