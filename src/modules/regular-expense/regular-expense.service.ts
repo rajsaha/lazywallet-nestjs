@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { REDays } from 'src/entities/REDays.entity';
 import { RegularExpense } from 'src/entities/RegularExpense.entity';
 import { Repository } from 'typeorm';
 import { CreateRegularExpenseDto } from './dto/create-regular-expense.dto';
@@ -10,14 +11,20 @@ export class RegularExpenseService {
   constructor(
     @InjectRepository(RegularExpense)
     private readonly regularExpenseRepository: Repository<RegularExpense>,
+    @InjectRepository(REDays)
+    private readonly reDaysRepository: Repository<REDays>
   ) {}
 
   findAll() {
-    return this.regularExpenseRepository.find();
+    return this.regularExpenseRepository.find({
+      relations: ['days']
+    });
   }
 
   async findOne(id: string) {
-    const _result = await this.regularExpenseRepository.findOne(id);
+    const _result = await this.regularExpenseRepository.findOne(id, {
+      relations: ['days']
+    });
     if (!_result) {
       throw new NotFoundException(`Regular expense #${id} not found`);
     }
@@ -46,7 +53,7 @@ export class RegularExpenseService {
   }
 
   async delete(id: string) {
-    const existingRegularExpense = await this.findOne(id);
-    return await this.regularExpenseRepository.delete(existingRegularExpense);
+    const existingRegularExpense = await this.regularExpenseRepository.findOne(id);
+    return await this.regularExpenseRepository.remove(existingRegularExpense);
   }
 }
