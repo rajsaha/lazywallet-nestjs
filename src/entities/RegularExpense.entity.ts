@@ -13,5 +13,5 @@ export class RegularExpense extends ExpenseContent {
     cascade: true,
     nullable: true
   })
-  days: number[];
+  days: IDays;
 }

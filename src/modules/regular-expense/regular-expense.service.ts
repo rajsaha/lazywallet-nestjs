@@ -11,19 +11,17 @@ export class RegularExpenseService {
   constructor(
     @InjectRepository(RegularExpense)
     private readonly regularExpenseRepository: Repository<RegularExpense>,
-    @InjectRepository(REDays)
-    private readonly reDaysRepository: Repository<REDays>
   ) {}
 
   findAll() {
     return this.regularExpenseRepository.find({
-      relations: ['days']
+      relations: ['days'],
     });
   }
 
   async findOne(id: string) {
     const _result = await this.regularExpenseRepository.findOne(id, {
-      relations: ['days']
+      relations: ['days'],
     });
     if (!_result) {
       throw new NotFoundException(`Regular expense #${id} not found`);
@@ -42,7 +40,7 @@ export class RegularExpenseService {
   async update(id: string, updateRegularExpenseDto: UpdateRegularExpenseDto) {
     const regularExpense = await this.regularExpenseRepository.preload({
       id: +id,
-      ...updateRegularExpenseDto
+      ...updateRegularExpenseDto,
     });
 
     if (!regularExpense) {
@@ -53,7 +51,9 @@ export class RegularExpenseService {
   }
 
   async delete(id: string) {
-    const existingRegularExpense = await this.regularExpenseRepository.findOne(id);
+    const existingRegularExpense = await this.regularExpenseRepository.findOne(
+      id,
+    );
     return await this.regularExpenseRepository.remove(existingRegularExpense);
   }
 }

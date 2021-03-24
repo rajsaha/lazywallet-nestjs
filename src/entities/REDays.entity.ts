@@ -7,7 +7,10 @@ export class REDays {
   id: number;
 
   @Column()
-  days: number;
+  value: string;
+
+  @Column()
+  selected: Boolean;
   
   @ManyToOne((type) => RegularExpense, (regularExpense) => regularExpense.days)
   regularExpense: RegularExpense;
