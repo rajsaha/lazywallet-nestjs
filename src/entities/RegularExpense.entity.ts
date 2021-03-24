@@ -6,6 +6,6 @@ export class RegularExpense extends ExpenseContent {
   @Column()
   repeat: Boolean;
 
-  @Column()
+  @Column('json', { nullable: true })
   days: IDays;
 }

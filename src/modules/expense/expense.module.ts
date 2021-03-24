@@ -5,8 +5,8 @@ import { Expense } from '../../entities/Expense.entity';
 import { ExpenseService } from './expense.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Expense])],
-    controllers: [ExpenseController],
-    providers: [ExpenseService]
+  imports: [TypeOrmModule.forFeature([Expense])],
+  controllers: [ExpenseController],
+  providers: [ExpenseService],
 })
 export class ExpenseModule {}

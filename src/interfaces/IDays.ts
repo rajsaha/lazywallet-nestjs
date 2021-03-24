@@ -1,3 +1,3 @@
 interface IDays {
-    days: Array<string>;
+    days: Array<IDay>;
 }

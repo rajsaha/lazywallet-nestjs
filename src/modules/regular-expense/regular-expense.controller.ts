@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateRegularExpenseDto } from './dto/create-regular-expense.dto';
+import { UpdateRegularExpenseDto } from './dto/update-regular-expense.dto';
 import { RegularExpenseService } from './regular-expense.service';
 
 @Controller('regular-expense')
@@ -16,16 +17,23 @@ export class RegularExpenseController {
 
   @Get()
   findAll() {
-    this.regularExpenseService.findAll();
+    return this.regularExpenseService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param(':id') id: string) {
+  async findOne(@Param('id') id: string) {
     const _result = await this.regularExpenseService.findOne(id);
     return _result;
   }
 
-  async delete(@Param(':id') id: string) {
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateRegularExpenseDto: UpdateRegularExpenseDto) {
+      const _result = await this.regularExpenseService.update(id, updateRegularExpenseDto);
+      return _result;
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
     const _result = await this.regularExpenseService.delete(id);
     return _result;
   }
