@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateExpenseDto } from './dto/create-expense.dto';
-import { Expense } from './Expense.entity';
+import { Expense } from '../../entities/Expense.entity';
 
 @Injectable()
 export class ExpenseService {
@@ -31,10 +31,6 @@ export class ExpenseService {
 
   async delete(id: string) {
     const existingExpense = await this.findOne(id);
-    if (!existingExpense) {
-      throw new NotFoundException(`Expense #${id} not found`);
-    }
-
     return await this.expenseRepository.delete(existingExpense);
   }
 }
