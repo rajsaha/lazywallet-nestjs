@@ -20,9 +20,7 @@ export class RegularExpenseService {
   }
 
   async findOne(id: string) {
-    const _result = await this.regularExpenseRepository.findOne(id, {
-      relations: ['days'],
-    });
+    const _result = await this.regularExpenseRepository.findOne(id);
     if (!_result) {
       throw new NotFoundException(`Regular expense #${id} not found`);
     }
