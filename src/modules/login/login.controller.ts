@@ -1,4 +1,4 @@
-import { Body, Controller, NotFoundException, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { LoginService } from './login.service';
 
@@ -6,9 +6,8 @@ import { LoginService } from './login.service';
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
   @Post()
-  login(@Body() loginDto: LoginDto) {
-    const _result = this.loginService.login(loginDto);
-    if (!_result) throw new NotFoundException('Username/Password does not match');
+  async login(@Body() loginDto: LoginDto) {
+    const _result = await this.loginService.login(loginDto);
     return _result;
   }
 }
