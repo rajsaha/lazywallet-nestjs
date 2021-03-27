@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { REDays } from 'src/entities/REDays.entity';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { RegularExpense } from 'src/entities/RegularExpense.entity';
 import { Repository } from 'typeorm';
 import { CreateRegularExpenseDto } from './dto/create-regular-expense.dto';
@@ -13,9 +13,11 @@ export class RegularExpenseService {
     private readonly regularExpenseRepository: Repository<RegularExpense>,
   ) {}
 
-  findAll() {
+  findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
     return this.regularExpenseRepository.find({
-      relations: ['days'],
+      skip: offset,
+      take: limit
     });
   }
 

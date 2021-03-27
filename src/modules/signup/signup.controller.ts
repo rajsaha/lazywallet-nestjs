@@ -6,8 +6,8 @@ import { SignupService } from './signup.service';
 export class SignupController {
   constructor(private readonly signupService: SignupService) {}
   @Post()
-  signup(@Body() signupDto: SignupDto) {
-    const _result = this.signupService.signup(signupDto);
+  async signup(@Body() signupDto: SignupDto) {
+    const _result = await this.signupService.signup(signupDto);
     return _result;
   }
 }

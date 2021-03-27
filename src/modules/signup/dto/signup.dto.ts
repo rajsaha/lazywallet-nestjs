@@ -7,7 +7,7 @@ export class SignupDto {
   readonly username: string;
 
   @IsString()
-  readonly password: string;
+  password: string;
 
   @IsString()
   readonly passwordConfirm: string;

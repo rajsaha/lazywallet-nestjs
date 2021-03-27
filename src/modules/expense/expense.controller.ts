@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { ExpenseService } from './expense.service';
 
@@ -13,8 +14,8 @@ export class ExpenseController {
   }
 
   @Get()
-  findAll() {
-    return this.expenseService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.expenseService.findAll(paginationQuery);
   }
 
   @Get(':id')

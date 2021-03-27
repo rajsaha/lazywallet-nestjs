@@ -1,10 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateExpenseDto {
   @IsString()
   readonly title: string;
 
-  @IsString()
+  @IsNumber()
   readonly amount: number;
 
   @IsString()

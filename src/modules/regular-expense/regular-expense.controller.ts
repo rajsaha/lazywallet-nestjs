@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CreateRegularExpenseDto } from './dto/create-regular-expense.dto';
 import { UpdateRegularExpenseDto } from './dto/update-regular-expense.dto';
 import { RegularExpenseService } from './regular-expense.service';
@@ -16,8 +17,8 @@ export class RegularExpenseController {
   }
 
   @Get()
-  findAll() {
-    return this.regularExpenseService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.regularExpenseService.findAll(paginationQuery);
   }
 
   @Get(':id')

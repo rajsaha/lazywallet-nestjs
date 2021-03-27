@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { Expense } from '../../entities/Expense.entity';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class ExpenseService {
@@ -11,8 +12,12 @@ export class ExpenseService {
     private readonly expenseRepository: Repository<Expense>,
   ) {}
 
-  findAll() {
-    return this.expenseRepository.find();
+  findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+    return this.expenseRepository.find({
+      skip: offset,
+      take: limit
+    });
   }
 
   async findOne(id: string) {
